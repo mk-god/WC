@@ -1,4 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-  void character(char *ad)
+  void character(char *file)
+  {
+          char c;
+          int num=0;
+          FILE *f
+    if(f=fopen(file,"r"==null))
+    {     
+            printf("文件不存在")
+    }
+    while(c=fgetc(f)!=-1)
+    {
+             num++;
+    }
+    printf("该文件字符数为：%d\n",num)
+    
+    }
+    
