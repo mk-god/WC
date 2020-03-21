@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-  void character(char *file)
+  void Character(char *file)
   {
           char c;
           int num=0;
           FILE *f
     if(f=fopen(file,"r"==null))
     {     
-            printf("文件不存在")
+            printf("无法打开此文件\n")
+            return -1;
     }
     while(c=fgetc(f)!=-1)
     {
@@ -16,5 +17,76 @@
     }
     printf("该文件字符数为：%d\n",num)
     
+  }
+  void Word(char *file)
+  {
+          char c;
+          int num;
+          int a=0;
+           FILE *f
+    if(f=fopen(file,"r"==null))
+    {     
+            printf("文件不存在")
+            return -1;
     }
+   c=fgetc(f);
+   if(feof(f))
+   {
+   break;
+   }
+   else{
+   if(c<'A'||'Z'<c<'a'||c>'z')
+      a=0;
+      else {if(a==0)
+      a=1;
+      num++;
+      }
+      printf("此文件的单词数为:%d\n",num);
+        }
+        
+   void Line(char *file)
+          char c;
+          char a;
+          int num=0;
+          FILE *f
+    if(f=fopen(file,"r"==null))
+    {     
+            printf("无法打开此文件\n")
+            return -1;
+    }
+    while(!c=fgetc(f))
+    {
+    if(c=='\n')
+    num++;
+    a=c;
+    }
+    if(a!='\n')
+    num++;
+    printf("此文件的行数为:%d\n",num);
+     }
+     
+    int main(){
+    char F[100];
+    char case;
+    printf("           WOED COUNT ")
+    printf("===============================")
+    printf("  一、统计字符数功能 wc.exe-c")
+    printf("  二、统计单词数功能 wc.exe-w")
+    printf("  三、统计行数功能 wc.exe-l"  )
+    printf("===============================")
+    printf("请输入功能选项 wc exe-")
+    sacanf("%c",&case)
+    printf("请输入文件地址:");
+        scanf("%s",F);
+    if(case!='c'&&case!='w'&&case!='l')
+    printf("该功能尚未开发")
+    switch(case){
+           case 'c':Character(F)
+           case 'w':Word(F)
+           case 'l':Line(F)
+           default :   break;
+           }
+               }
+           
+    
     
