@@ -5,88 +5,107 @@
   {
           char c;
           int num=0;
-          FILE *f
-    if(f=fopen(file,"r"==null))
-    {     
-            printf("无法打开此文件\n")
-            return -1;
+          FILE *f;
+    if((f=fopen(file,"r"))==NULL)
+    {
+    printf("         无法打开此文件\n");
+            return ;
     }
     while(c=fgetc(f)!=-1)
     {
              num++;
     }
-    printf("该文件字符数为：%d\n",num)
-    
+    printf("         该文件字符数为：%d\n",num);
+    fclose(f);
   }
   void Word(char *file)
   {
+
+
           char c;
-          int num;
+          int num=0;
           int a=0;
-           FILE *f
-    if(f=fopen(file,"r"==null))
-    {     
-            printf("文件不存在")
-            return -1;
+           FILE *f;
+    if((f=fopen(file,"r"))==NULL)
+    {
+    printf("         无法打开此文件\n");
+             return ;
     }
    c=fgetc(f);
-   if(feof(f))
-   {
-   break;
-   }
-   else{
-   if(c<'A'||'Z'<c<'a'||c>'z')
+   while(!feof(f)){
+
+      c=fgetc(f);
+   if(c<'A'||('Z'<c&&c<'a')||c>'z')
       a=0;
-      else {if(a==0)
-      a=1;
-      num++;
+      else if(a==0)
+      {
+          a=1;
+        num++;
       }
-      printf("此文件的单词数为:%d\n",num);
-        }
-        
+
+   }
+
+    printf("         此文件的单词数为:%d\n",num);
+          fclose(f);
+      }
+
+
+
    void Line(char *file)
+   {
           char c;
           char a;
           int num=0;
-          FILE *f
-    if(f=fopen(file,"r"==null))
-    {     
-            printf("无法打开此文件\n")
-            return -1;
-    }
-    while(!c=fgetc(f))
+          FILE *f;
+    if((f=fopen(file,"r"))==NULL)
     {
+    printf("         无法打开此文件\n");
+             return ;
+    }
+    while((c=fgetc(f))!=-1)
+    {
+        c=fgetc(f);
     if(c=='\n')
     num++;
     a=c;
     }
-    if(a!='\n')
-    num++;
-    printf("此文件的行数为:%d\n",num);
-     }
-     
+    if(a!='\n'){
+    num++;}
+    printf("         此文件的行数为:%d\n",num);
+     fclose(f);
+
+   }
     int main(){
-    char F[100];
-    char case;
-    printf("           WOED COUNT ")
-    printf("===============================")
-    printf("  一、统计字符数功能 wc.exe-c")
-    printf("  二、统计单词数功能 wc.exe-w")
-    printf("  三、统计行数功能 wc.exe-l"  )
-    printf("===============================")
-    printf("请输入功能选项 wc exe-")
-    sacanf("%c",&case)
-    printf("请输入文件地址:");
-        scanf("%s",F);
-    if(case!='c'&&case!='w'&&case!='l')
-    printf("该功能尚未开发")
-    switch(case){
-           case 'c':Character(F)
-           case 'w':Word(F)
-           case 'l':Line(F)
+    char file[100];
+    char choose;
+    while(1){
+    printf("                      WOED   COUNT           \n");
+    printf("         ====================================\n");
+    printf("         =                                  =\n");
+    printf("         =   一、统计字符数功能 wc.exe-c    =\n");
+    printf("         =   二、统计单词数功能 wc.exe-w    =\n");
+    printf("         =   三、统计行数功能   wc.exe-l    =\n");
+    printf("         =   四、全部输出       wc.exe-a    =\n");
+    printf("         =                                  =\n");
+    printf("         ====================================\n");
+    printf("                 请输入功能选项 c/w/l/a:");
+    scanf(" %c",&choose);
+    while(choose!='c'&&choose!='w'&&choose!='l'&&choose!='a'){
+
+    printf("                 该功能尚未开发,请重新输入 c/w/l/all:");
+    scanf(" %c",&choose);
+    }
+    printf("                 请输入文件地址: ");
+        scanf("%s",&file);
+
+
+
+    switch(choose){
+           case 'c':Character(file);break;
+           case 'w':Word(file);break;
+           case 'l':Line(file);break;
+           case 'a':Character(file);Word(file);Line(file);break;
            default :   break;
            }
-               }
-           
-    
-    
+            }}
+
