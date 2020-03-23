@@ -75,6 +75,68 @@
      fclose(f);
 
    }
+
+  void Anther(char File[]){
+        int num1=0;
+		int num2=0;
+		int num3=0;
+        char c[100];
+        char b;
+        FILE *f=fopen(File,"r");
+        if(!f){
+                printf("打开文件出错，请重试！\n");
+                return ;
+        }
+        while(!feof(f)){
+                fgets(c,100,f);
+                if(strstr(c,"//"))
+				num1++;}
+        rewind(f);
+        printf("此文件的注释行行数为:%d\n",num1);
+
+    while(!feof(f)){
+    int flag=0;
+    int n=0;
+
+    b=fgetc(f);
+    while(fgetc(f)!=EOF){
+        if(b=='\n'&&n==0)
+        {
+            flag=1;
+           num2++;
+        }
+
+        else if(b!='\n'&&flag==1)
+            n++;
+
+        else if(b!='\n'&&flag==0&&n==0)
+            {
+                n++;
+                flag=1;
+            }
+        else if(b=='\n'&&flag==1&&n>=0){
+            n=0;
+            flag=0;
+        }
+
+        b=fgetc(f);}}
+       rewind(f);
+        printf("此文件的空行行数为:%d\n",num2);
+
+
+
+         while(!feof(f)){
+                fgets(c,100,f);
+                if(strstr(c,"//"))
+                {
+                }
+                else  if(strlen(c)>1)
+               num3++;
+            }
+        printf("此文件的代码行行数为:%d\n",num3);
+
+    }
+
     int main(){
     char file[100];
     char choose;
@@ -85,14 +147,14 @@
     printf("         =   一、统计字符数功能 wc.exe-c    =\n");
     printf("         =   二、统计单词数功能 wc.exe-w    =\n");
     printf("         =   三、统计行数功能   wc.exe-l    =\n");
-    printf("         =   四、全部输出       wc.exe-a    =\n");
+    printf("         =   四、全部输出       wc.exe-t    =\n");
     printf("         =                                  =\n");
     printf("         ====================================\n");
-    printf("                 请输入功能选项 c/w/l/a:");
+    printf("                 请输入功能选项 c/w/l/a/t:");
     scanf(" %c",&choose);
-    while(choose!='c'&&choose!='w'&&choose!='l'&&choose!='a'){
+    while(choose!='c'&&choose!='w'&&choose!='l'&&choose!='a'&&choose!='t'){
 
-    printf("                 该功能尚未开发,请重新输入 c/w/l/all:");
+    printf("                 该功能尚未开发,请重新输入 c/w/l/a/t:");
     scanf(" %c",&choose);
     }
     printf("                 请输入文件地址: ");
@@ -104,8 +166,8 @@
            case 'c':Character(file);break;
            case 'w':Word(file);break;
            case 'l':Line(file);break;
-           case 'a':Character(file);Word(file);Line(file);break;
+           case 'a':Anther(file);break;
+           case 't':Character(file);Word(file);Line(file);Anther(file);break;
            default :   break;
            }
             }}
-
