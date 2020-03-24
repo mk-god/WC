@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
   void Character(char *file)
   {
           char c;
           int num=0;
           FILE *f;
-    if((f=fopen(file,"r"))==NULL)   //判断输入文件名是否正确，下同   
+    if((f=fopen(file,"r"))==NULL)   //判断输入文件名是否正确，下同
     {
     printf("         无法打开此文件\n");
             return ;
@@ -15,6 +16,7 @@
     {
              num++;
     }
+    rewind(f);
     printf("         该文件字符数为：%d\n",num);
     fclose(f);
   }
@@ -35,7 +37,7 @@
    while(!feof(f)){
 
       c=fgetc(f);
-   if(c<'A'||('Z'<c&&c<'a')||c>'z')   //
+   if(c<'A'||(('Z'<c)&&(c<'a'))||c>'z')   //
       a=0;
       else if(a==0)
       {
@@ -44,7 +46,7 @@
       }
 
    }
-
+    rewind(f);
     printf("         此文件的单词数为:%d\n",num);
           fclose(f);
       }
@@ -62,51 +64,55 @@
     printf("         无法打开此文件\n");
              return ;
     }
-    while((c=fgetc(f))!=-1)
+    while(!feof(f))
     {
         c=fgetc(f);
     if(c=='\n')
-    num++;
+    {
+        num++;
+    }
     a=c;
     }
     if(a!='\n'){
     num++;}
+    rewind(f);
     printf("         此文件的行数为:%d\n",num);
      fclose(f);
 
    }
 
-  void Anther(char File[]){
+  void Anther(char *file){
         int num1=0;
 		int num2=0;
 		int num3=0;
         char c[100];
         char b;
-        FILE *f=fopen(File,"r");
-        if(!f){
-                printf("打开文件出错，请重试！\n");
+        char d;
+        FILE *f;
+        if((f=fopen(file,"r"))==NULL){
+                printf("         打开文件出错，请重试！\n");
                 return ;
         }
         while(!feof(f)){
                 fgets(c,100,f);
-                if(strstr(c,"//"))   //判断是否出现‘//’     
+                if(strstr(c,"//"))   //判断是否出现‘//’
 				num1++;}
         rewind(f);
-        printf("此文件的注释行行数为:%d\n",num1);
+        printf("         此文件的注释行行数为:%d\n",num1);
 
     while(!feof(f)){
     int flag=0;
     int n=0;
 
     b=fgetc(f);
-    while(fgetc(f)!=EOF){
+    while(!feof(f)){
         if(b=='\n'&&n==0)
         {
             flag=1;
            num2++;
         }
 
-        else if(b!='\n'&&flag==1)    
+        else if(b!='\n'&&flag==1)
             n++;
 
         else if(b!='\n'&&flag==0&&n==0)
@@ -121,7 +127,7 @@
 
         b=fgetc(f);}}
        rewind(f);
-        printf("此文件的空行行数为:%d\n",num2);
+        printf("         此文件的空行行数为:%d\n",num2);
 
 
 
@@ -133,7 +139,8 @@
                 else  if(strlen(c)>1)     //判断该行长度是否大于1确定是否是空行
                num3++;
             }
-        printf("此文件的代码行行数为:%d\n",num3);
+            rewind(f);
+        printf("         此文件的代码行行数为:%d\n",num3);
 
     }
 
@@ -147,7 +154,9 @@
     printf("         =   一、统计字符数功能 wc.exe-c    =\n");
     printf("         =   二、统计单词数功能 wc.exe-w    =\n");
     printf("         =   三、统计行数功能   wc.exe-l    =\n");
-    printf("         =   四、全部输出       wc.exe-t    =\n");
+    printf("         =   四、统计空/注释/代码行函数     =\n");
+    printf("         =                      wc.exe-a    =\n");
+    printf("         =   五、输出全部结果   wc.exe-t    =\n");
     printf("         =                                  =\n");
     printf("         ====================================\n");
     printf("                 请输入功能选项 c/w/l/a/t:");
